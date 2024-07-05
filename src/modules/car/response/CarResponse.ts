@@ -1,4 +1,9 @@
-import { ObjectId } from "typeorm";
+import { ObjectId } from "mongodb";
+
+interface Accessory {
+  itemId?: number; // itemId is optional as it will be auto-generated
+  description: string;
+}
 
 export default class CarResponse {
   _id: ObjectId;
@@ -6,7 +11,7 @@ export default class CarResponse {
   color: string;
   year: string;
   value_per_day: number;
-  acessories: string[];
+  accessories: Accessory[];
   number_of_passengers: number;
 
   constructor(
@@ -15,7 +20,7 @@ export default class CarResponse {
     color: string,
     year: string,
     value_per_day: number,
-    acessories: string[],
+    accessories: Accessory[],
     number_of_passengers: number,
   ) {
     (this._id = _id),
@@ -23,7 +28,7 @@ export default class CarResponse {
       (this.color = color),
       (this.year = year),
       (this.value_per_day = value_per_day),
-      (this.acessories = acessories),
+      (this.accessories = accessories),
       (this.number_of_passengers = number_of_passengers);
   }
 
@@ -34,7 +39,9 @@ export default class CarResponse {
       color: this.color,
       year: this.year,
       value_per_day: this.value_per_day,
-      acessories: this.acessories,
+      accessories: this.accessories.map((accessory) => ({
+        description: accessory.description,
+      })),
       number_of_passengers: this.number_of_passengers,
     };
   };
