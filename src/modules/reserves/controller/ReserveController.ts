@@ -71,7 +71,7 @@ export default class ReserveController {
     const id = new ObjectId(req.params.id);
 
     try {
-      const reserve = await this.reserveService.searchReverse(id);
+      const reserve = await this.reserveService.searchReserve(id);
 
       res.status(200).json({ data: reserve });
     } catch (error) {

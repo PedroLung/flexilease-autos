@@ -163,7 +163,7 @@ export default class ReserveService {
     return;
   };
 
-  searchReverse = async (id: ObjectId): Promise<ReserveResponse> => {
+  searchReserve = async (id: ObjectId): Promise<ReserveResponse> => {
     const reserve = await ReserveRepository.findOneOrFail({
       where: { _id: id },
     });
