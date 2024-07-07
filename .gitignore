@@ -1,0 +1,7 @@
+.idea/
+node_modules/
+build/
+tmp/
+temp/
+src/shared/typeorm/database.db
+.env
