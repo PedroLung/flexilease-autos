@@ -134,7 +134,7 @@ export default class UserService {
       where: { _id },
     });
     if (!User) {
-      throw new Error("Car not found");
+      throw new Error("User not found");
     }
     await UserRepository.softRemove(User);
     return;

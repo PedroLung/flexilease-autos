@@ -62,8 +62,8 @@ export default class ReserveController {
     try {
       await this.reserveService.deleteReserve(new ObjectId(id));
       res.status(204).send();
-    } catch (error) {
-      res.status(500).json({ message: error });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
     }
   };
 
@@ -75,7 +75,7 @@ export default class ReserveController {
 
       res.status(200).json({ data: reserve });
     } catch (error) {
-      console.error("Error searching movie: ", error);
+      console.error("Error searching reserve: ", error);
       res.status(404).json({ error: "Reserve not found" });
     }
   };

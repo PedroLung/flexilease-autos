@@ -170,7 +170,7 @@ export default class ReserveService {
     if (reserve) {
       return ReserveMapper.entityToDTO(reserve);
     }
-    throw new Error("Movie not found");
+    throw new Error("Reserve not found");
   };
 
   listReserve = async (

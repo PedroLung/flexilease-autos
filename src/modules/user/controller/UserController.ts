@@ -75,7 +75,7 @@ export default class UserController {
 
       res.status(200).json({ data: user });
     } catch (error) {
-      console.error("Error searching movie: ", error);
+      console.error("Error searching user: ", error);
       res.status(404).json({ error: "User not found" });
     }
   };

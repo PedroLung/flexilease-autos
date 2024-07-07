@@ -35,8 +35,6 @@ export default class CarService {
   };
 
   updateCar = async (carData: CarRequest): Promise<CarResponse> => {
-    console.log(carData);
-
     const car = await CarRepository.findOne({
       where: { _id: new ObjectId(carData._id) },
     });

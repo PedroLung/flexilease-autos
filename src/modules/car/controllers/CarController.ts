@@ -48,7 +48,6 @@ export default class CarController {
 
       res.status(200).json({ data: updateCar });
     } catch (error: any) {
-      console.log(error);
       res
         .status(500)
         .json({ error: "Internal Server Error", message: error.message });
