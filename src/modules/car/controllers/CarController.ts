@@ -66,6 +66,19 @@ export default class CarController {
     }
   };
 
+  searchCar = async (req: Request, res: Response) => {
+    const id = new ObjectId(req.params.id);
+
+    try {
+      const car = await this.carService.searchCar(id);
+
+      res.status(200).json({ data: car });
+    } catch (error) {
+      console.error("Error searching Car: ", error);
+      res.status(404).json({ error: "Car not found" });
+    }
+  };
+
   listCars = async (req: Request, res: Response) => {
     try {
       const offset = Number(req.query.page) | 1;

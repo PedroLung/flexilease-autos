@@ -75,6 +75,16 @@ export default class CarService {
     return;
   };
 
+  searchCar = async (id: ObjectId): Promise<CarResponse> => {
+    const car = await CarRepository.findOneOrFail({
+      where: { _id: id },
+    });
+    if (car) {
+      return CarMapper.entityToDTO(car);
+    }
+    throw new Error("Car not found");
+  };
+
   listCar = async (
     skip: number,
     limit: number,
