@@ -1,0 +1,815 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "FlexiLease Autos",
+    "description": "Just a Project Build with TypeORM and MongoDB,\nhere a useful link:\n- [The FlexiLease Autos github repository](https://github.com/PedroLung/flexilease-autos)",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "car"
+    },
+    {
+      "name": "user"
+    },
+    {
+      "name": "reserve"
+    }
+  ],
+  "paths": {
+    "/car": {
+      "get": {
+        "tags": ["car"],
+        "summary": "Find all cars",
+        "operationId": "findAllCars",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CarResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Status Value"
+          }
+        }
+      },
+      "post": {
+        "tags": ["car"],
+        "summary": "Creates a car",
+        "operationId": "createCar",
+        "requestBody": {
+          "description": "JSON Example",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CarReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/car/{id}": {
+      "get": {
+        "tags": ["car"],
+        "summary": "Find car by ID",
+        "description": "Returns a single car",
+        "operationId": "getCarById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of car to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["car"],
+        "summary": "Updates a car",
+        "operationId": "updateCar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of car to update",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON Example",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CarReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["car"],
+        "summary": "Deletes a car",
+        "operationId": "deleteCar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of car to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "no content"
+          }
+        }
+      }
+    },
+    "/authenticate": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Authenticates a user",
+        "operationId": "AuthUser",
+        "requestBody": {
+          "description": "JSON Example",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": ["user"],
+        "summary": "Find all users",
+        "operationId": "findAllUsers",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Status Value"
+          }
+        }
+      },
+      "post": {
+        "tags": ["user"],
+        "summary": "Creates a user",
+        "operationId": "createUser",
+        "requestBody": {
+          "description": "JSON Example",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": ["user"],
+        "summary": "get user by id",
+        "operationId": "getUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of user to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid status value"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": ["user"],
+        "summary": "Updates a User",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of user to update",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON Example",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid status value"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["user"],
+        "summary": "Deletes a user",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of user to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "no content"
+          },
+          "400": {
+            "description": "Invalid Status Value"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reserve": {
+      "get": {
+        "tags": ["reserve"],
+        "summary": "Find all reserves",
+        "operationId": "findAllReserves",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReserveResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Status Value"
+          }
+        }
+      },
+      "post": {
+        "tags": ["reserve"],
+        "summary": "Creates a reserve",
+        "operationId": "createReserve",
+        "requestBody": {
+          "description": "JSON Example",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReserveReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReserveResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/reserve/{id}": {
+      "get": {
+        "tags": ["reserve"],
+        "summary": "Get reserve by id",
+        "operationId": "getReserveById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of reserve to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReserveResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid status value"
+          }
+        }
+      },
+      "put": {
+        "tags": ["reserve"],
+        "summary": "Updates a Reserve",
+        "operationId": "updateReserve",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of reserve to update",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON Example",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReserveReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReserveResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "invalid status value"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["reserve"],
+        "summary": "Deletes a Reserve",
+        "operationId": "deleteReserve",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of reserve to be delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "no content"
+          },
+          "400": {
+            "description": "invalid status value"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CarReq": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string",
+            "example": "GM S10"
+          },
+          "color": {
+            "type": "string",
+            "example": "white"
+          },
+          "year": {
+            "type": "string",
+            "example": 2021
+          },
+          "value_per_day": {
+            "type": "number",
+            "example": 50
+          },
+          "accessories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              {
+                "description": "air conditioner"
+              }
+            ]
+          },
+          "number_of_passengers": {
+            "type": "number",
+            "example": 5
+          }
+        },
+        "required": ["model", "color", "year", "value_per_day", "accessories"]
+      },
+      "CarResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "668acba56b24636a0c5f8234"
+          },
+          "model": {
+            "type": "string",
+            "example": "GM S10"
+          },
+          "color": {
+            "type": "string",
+            "example": "white"
+          },
+          "year": {
+            "type": "string",
+            "example": 2021
+          },
+          "value_per_day": {
+            "type": "number",
+            "example": 50
+          },
+          "accessories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              {
+                "description": "air conditioner"
+              }
+            ]
+          },
+          "number_of_passengers": {
+            "type": "number",
+            "example": 5
+          }
+        },
+        "required": ["model", "color", "year", "value_per_day", "accessories"]
+      },
+      "AuthRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "ronaldo@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": 123456
+          }
+        },
+        "required": ["email", "password"]
+      },
+      "AuthResponse": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "ronaldo@gmail.com"
+          },
+          "password": {
+            "type": "string",
+            "example": 123456
+          },
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2OGFjYjY4NmIyNDYzNmEwYzVmODIzMyIsImlhdCI6MTcyMDM3MjA3NiwiZXhwIjoxNzIwNDU4NDc2fQ.WLu15WF2G7s0xpVBa4BRTXdbKDg1wvJs0XjUM_ZH9Bg"
+          }
+        },
+        "required": ["email", "password", "token"]
+      },
+      "UserRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Jorge Fenomenal"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "132.456.678-09"
+          },
+          "birth": {
+            "type": "string",
+            "example": "03/06/2000"
+          },
+          "email": {
+            "type": "string",
+            "example": "jorge@email.com"
+          },
+          "password": {
+            "type": "string",
+            "example": 123456
+          },
+          "cep": {
+            "type": "string",
+            "example": 1001000
+          },
+          "qualified": {
+            "type": "string",
+            "example": "sim"
+          }
+        },
+        "required": [
+          "name",
+          "cpf",
+          "birth",
+          "email",
+          "password",
+          "cep",
+          "qualified"
+        ]
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "668ad3276b24636a0c5f8235"
+          },
+          "name": {
+            "type": "string",
+            "example": "Jorge Fenomenal"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "132.456.678-09"
+          },
+          "birth": {
+            "type": "string",
+            "example": "03/06/2000"
+          },
+          "email": {
+            "type": "string",
+            "example": "jorge@email.com"
+          },
+          "password": {
+            "type": "string",
+            "example": 123456
+          },
+          "cep": {
+            "type": "string",
+            "example": 1001000
+          },
+          "qualified": {
+            "type": "string",
+            "example": "sim"
+          },
+          "patio": {
+            "type": "string",
+            "example": "Praça da Sé"
+          },
+          "complement": {
+            "type": "string",
+            "example": "lado ímpar"
+          },
+          "neighborhood": {
+            "type": "string",
+            "example": "Sé"
+          },
+          "locality": {
+            "type": "string",
+            "example": "São Paulo"
+          },
+          "uf": {
+            "type": "string",
+            "example": "SP"
+          }
+        },
+        "required": [
+          "_id",
+          "name",
+          "cpf",
+          "birth",
+          "email",
+          "password",
+          "cep",
+          "qualified",
+          "patio",
+          "complement",
+          "neighborhood",
+          "locality",
+          "uf"
+        ]
+      },
+      "ReserveReq": {
+        "type": "object",
+        "properties": {
+          "start_date": {
+            "type": "string",
+            "example": "20/04/2023"
+          },
+          "end_date": {
+            "type": "string",
+            "example": "30/04/2023"
+          },
+          "id_car": {
+            "type": "string",
+            "example": "668acba56b24636a0c5f8234"
+          },
+          "id_user": {
+            "type": "string",
+            "example": "668ad3276b24636a0c5f8235"
+          }
+        },
+        "required": ["start_date", "end_date", "id_car", "id_user"]
+      },
+      "ReserveResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "668ad4c66b24636a0c5f8236"
+          },
+          "id_user": {
+            "type": "string",
+            "example": "668ad3276b24636a0c5f8235"
+          },
+          "start_date": {
+            "type": "string",
+            "example": "20/04/2023"
+          },
+          "end_date": {
+            "type": "string",
+            "example": "30/04/2023"
+          },
+          "id_car": {
+            "type": "string",
+            "example": "668acba56b24636a0c5f8234"
+          },
+          "final_value": {
+            "type": "number",
+            "example": 500
+          }
+        },
+        "required": [
+          "_id",
+          "id_user",
+          "start_date",
+          "end_date",
+          "id_car",
+          "final_value"
+        ]
+      }
+    }
+  }
+}
