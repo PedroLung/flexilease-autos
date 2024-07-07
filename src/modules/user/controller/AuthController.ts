@@ -21,9 +21,9 @@ export default class AuthController {
       const initAuth = await this.authService.createAuth(value);
 
       res.status(201).json({ data: initAuth });
-    } catch (error) {
+    } catch (error: any) {
       return res.status(400).json({
-        message: error,
+        message: error.message,
         status: "Bad Request",
       });
     }
