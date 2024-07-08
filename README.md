@@ -40,7 +40,7 @@ Siga estas etapas para instalar o projeto:
 
 1.  Clone o repositório:
 
-`git clone https://github.com/PauloVargas07/ticketOffice.git`
+`git clone https://github.com/PedroLung/flexilease-autos.git`
 
 2.  Navegue até o diretório do projeto:
 
@@ -80,12 +80,16 @@ Lembre-se de alterar o `:id` pelos seus referentes IDs.
 
 ## 🙋🏻‍♂️Users
 
+- **GET geral**: `/user`
+- **GET específico**: `/user/:id`
 - **POST**: `/user`
 - **PUT**: `/user/:id`
 - **DELETE**: `/user/:id`
 
 ## 📝Reserves
 
+- **GET geral**: `/reserves`
+- **GET específico**: `/reserves/:id`
 - **POST**: `/reserve`
 - **PUT**: `/reserve/:id`
 - **DELETE**: `/reserve/:id`
