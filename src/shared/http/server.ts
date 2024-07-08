@@ -3,10 +3,12 @@ import express from "express";
 import routes from "./routes";
 import swaggerUi from "swagger-ui-express";
 import swaggerDoc from "../../../swagger.json";
+import dotenv from "dotenv";
 
 const app = express();
+dotenv.config();
 
-const port = 3000;
+const port = process.env.port;
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
